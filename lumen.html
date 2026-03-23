@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg:      #0A0A0A;
+    --accent:  #FF3B00;
+    --white:   #FFFFFF;
+    --fd:      'DM Sans', system-ui, sans-serif;
+    --ft:      'DM Sans', system-ui, sans-serif;
+    --fl:      'Bricolage Grotesque', system-ui, sans-serif;
+    --line:    0.5px;
+    --r:       12px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: var(--ft);
+    font-size: 15px;
+    line-height: 24px;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 2px; }
+
+  a { color: inherit; text-decoration: none; }
+  img { display: block; width: 100%; }
+  button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 100;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    background: rgba(10,10,10,0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: var(--line) solid rgba(255,255,255,0.07);
+  }
+
+  .nav-logo {
+    font-family: var(--fl);
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--white);
+  }
+
+  .nav-burger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 8px;
+    margin-right: -8px;
+  }
+  .nav-burger span {
+    display: block;
+    height: 1px;
+    background: var(--white);
+    transition: width 0.2s, background 0.2s;
+  }
+  .nav-burger span:nth-child(1) { width: 24px; }
+  .nav-burger span:nth-child(2) { width: 16px; }
+  .nav-burger span:nth-child(3) { width: 20px; }
+  .nav-burger:hover span { background: var(--accent); width: 24px; }
+
+  /* ── MENU OVERLAY ── */
+  .menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    background: rgba(0,0,0,0);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, background 0.3s ease;
+  }
+  .menu-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+    background: rgba(0,0,0,0.55);
+  }
+  .menu-drawer {
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: 390px;
+    max-width: 100%;
+    background: var(--bg);
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+  .menu-overlay.open .menu-drawer {
+    transform: translateX(0);
+  }
+
+  .menu-top {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    border-bottom: var(--line) solid rgba(255,255,255,0.07);
+  }
+  .menu-logo {
+    font-family: var(--fl);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .menu-close {
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.45);
+    font-size: 18px;
+    border: var(--line) solid rgba(255,255,255,0.10);
+    border-radius: 8px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .menu-close:hover { color: var(--white); border-color: rgba(255,255,255,0.28); }
+
+  .menu-links {
+    position: absolute;
+    top: 60px;
+    bottom: 88px;
+    left: 0; right: 0;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 0 28px;
+    overflow-y: auto;
+  }
+  .menu-links a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: var(--line) solid rgba(255,255,255,0.07);
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, color 0.15s;
+  }
+  .menu-links a:first-child { border-top: var(--line) solid rgba(255,255,255,0.07); }
+  .menu-overlay.open .menu-links a { opacity: 1; transform: translateY(0); }
+  .menu-links a:nth-child(1) { transition-delay: 0.04s; }
+  .menu-links a:nth-child(2) { transition-delay: 0.08s; }
+  .menu-links a:nth-child(3) { transition-delay: 0.12s; }
+  .menu-links a:nth-child(4) { transition-delay: 0.16s; }
+  .menu-links a:nth-child(5) { transition-delay: 0.20s; }
+  .menu-links a:nth-child(6) { transition-delay: 0.24s; }
+  .menu-links a:nth-child(7) { transition-delay: 0.28s; }
+  .menu-links a:nth-child(8) { transition-delay: 0.32s; }
+  .menu-links a:nth-child(9) { transition-delay: 0.36s; }
+
+  .menu-link-name {
+    font-family: var(--fd);
+    font-size: 36px;
+    line-height: 46px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    transition: color 0.15s;
+  }
+  .menu-links a:hover .menu-link-name { color: rgba(255,255,255,0.35); }
+
+  .menu-link-num {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.18);
+  }
+
+  .menu-bottom {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 28px 28px;
+    border-top: var(--line) solid rgba(255,255,255,0.07);
+    opacity: 0;
+    transition: opacity 0.3s ease 0.25s;
+  }
+  .menu-overlay.open .menu-bottom { opacity: 1; }
+
+  .menu-bottom-actions { display: flex; gap: 8px; }
+
+  .btn-login {
+    padding: 10px 20px;
+    border: var(--line) solid rgba(255,255,255,0.14);
+    border-radius: 8px;
+    font-family: var(--ft);
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.55);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-login:hover { border-color: rgba(255,255,255,0.32); color: var(--white); }
+  .btn-join {
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: var(--accent);
+    font-family: var(--ft);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+    transition: opacity 0.2s;
+  }
+  .btn-join:hover { opacity: 0.85; }
+
+  .menu-bottom-socials { display: flex; gap: 8px; }
+  .menu-social {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    border: var(--line) solid rgba(255,255,255,0.10);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.32);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .menu-social:hover { border-color: rgba(255,255,255,0.28); color: var(--white); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    height: 100svh;
+    min-height: 600px;
+    padding-top: 60px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+  }
+  .hero-bg img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center center;
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(10,10,10,0.90) 0%,
+      rgba(10,10,10,0.40) 45%,
+      rgba(10,10,10,0.08) 100%
+    );
+  }
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    padding: 0 40px 64px;
+    width: 100%;
+    max-width: 600px;
+  }
+  .hero-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .hero-name {
+    font-family: var(--fl);
+    font-size: 64px;
+    line-height: 68px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    margin-bottom: 20px;
+  }
+  .hero-bio {
+    font-size: 15px;
+    line-height: 24px;
+    color: rgba(255,255,255,0.52);
+    max-width: 380px;
+    margin-bottom: 32px;
+  }
+  .hero-socials {
+    display: flex;
+    gap: 8px;
+  }
+  .hero-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    border: var(--line) solid rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.55);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .hero-social:hover { border-color: rgba(255,255,255,0.45); color: var(--white); }
+  .hero-social img { width: 16px; height: 16px; opacity: 0.55; filter: invert(1); transition: opacity 0.2s; }
+  .hero-social:hover img { opacity: 1; }
+
+  /* ── SECTIONS ── */
+  section { padding: 88px 0; }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: var(--line) solid rgba(255,255,255,0.08);
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: var(--fd);
+    font-size: 32px;
+    line-height: 40px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--white);
+  }
+  .see-more {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    transition: color 0.2s;
+  }
+  .see-more:hover { color: var(--white); }
+
+  /* ── X POSTS ── */
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: var(--line) solid rgba(255,255,255,0.07);
+    border-radius: var(--r);
+    overflow: hidden;
+  }
+  .post-card {
+    padding: 28px;
+    border-right: var(--line) solid rgba(255,255,255,0.07);
+    transition: background 0.2s;
+  }
+  .post-card:last-child { border-right: none; }
+  .post-card:hover { background: rgba(255,255,255,0.03); }
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .post-x-icon {
+    width: 14px; height: 14px;
+    opacity: 0.35;
+  }
+  .post-date {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: rgba(255,255,255,0.30);
+  }
+  .post-text {
+    font-size: 14px;
+    line-height: 22px;
+    color: rgba(255,255,255,0.72);
+  }
+  .post-text a { color: var(--accent); }
+
+  /* ── VIDEOS ── */
+  .videos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .video-card { cursor: pointer; }
+  .video-thumb {
+    position: relative;
+    aspect-ratio: 16/9;
+    border-radius: var(--r);
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .video-thumb img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .video-card:hover .video-thumb img { transform: scale(1.04); }
+  .video-duration {
+    position: absolute;
+    top: 12px; right: 12px;
+    background: rgba(10,10,10,0.72);
+    color: rgba(255,255,255,0.85);
+    font-size: 10px;
+    line-height: 16px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 4px 8px;
+    border-radius: 6px;
+  }
+  .video-play-icon {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .video-play-icon span {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: rgba(10,10,10,0.80);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .video-card:hover .video-play-icon { opacity: 1; }
+  .video-title {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 22px;
+    color: var(--white);
+    margin-bottom: 4px;
+    transition: color 0.2s;
+  }
+  .video-card:hover .video-title { color: rgba(255,255,255,0.75); }
+  .video-date {
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* ── BANNER SECTIONS ── */
+  .banner-section {
+    position: relative;
+    overflow: hidden;
+    padding: 100px 0;
+    text-align: center;
+  }
+  .banner-bg {
+    position: absolute;
+    inset: 0;
+    object-fit: cover;
+    object-position: center center;
+    width: 100%; height: 100%;
+    opacity: 0.40;
+    pointer-events: none;
+  }
+  .banner-content {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .banner-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .banner-title {
+    font-family: var(--fd);
+    font-size: 40px;
+    line-height: 48px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+  .banner-sub {
+    font-size: 15px;
+    line-height: 24px;
+    color: rgba(255,255,255,0.50);
+    margin-bottom: 36px;
+  }
+  .btn-cta {
+    display: inline-block;
+    padding: 14px 36px;
+    background: var(--accent);
+    color: var(--white);
+    border-radius: var(--r);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: opacity 0.2s;
+  }
+  .btn-cta:hover { opacity: 0.85; }
+
+  /* ── COUNTDOWN ── */
+  .countdown {
+    display: flex;
+    gap: 28px;
+    margin-top: 36px;
+    justify-content: center;
+  }
+  .cd-item { text-align: center; }
+  .cd-num {
+    font-family: var(--fd);
+    font-size: 48px;
+    line-height: 52px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    display: block;
+  }
+  .cd-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-top: 6px;
+  }
+
+  /* ── PHOTOSETS ── */
+  .photos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .photo-card { cursor: pointer; }
+  .photo-thumb {
+    aspect-ratio: 3/4;
+    border-radius: var(--r);
+    overflow: hidden;
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .photo-thumb img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .photo-card:hover .photo-thumb img { transform: scale(1.05); }
+  .photoset-count {
+    position: absolute;
+    top: 12px; right: 12px;
+    background: rgba(10,10,10,0.72);
+    color: rgba(255,255,255,0.85);
+    font-size: 10px;
+    line-height: 16px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 4px 8px;
+    border-radius: 6px;
+  }
+  .photo-title {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 22px;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .photo-date {
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* ── BLOG ── */
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .blog-card {
+    border: 0.5px solid rgba(255,255,255,0.07);
+    border-radius: var(--r);
+    overflow: hidden;
+    transition: background 0.2s;
+  }
+  .blog-card:hover { background: rgba(255,255,255,0.045); }
+  .blog-card-img {
+    aspect-ratio: 16/9;
+    overflow: hidden;
+  }
+  .blog-card-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .blog-card:hover .blog-card-img img { transform: scale(1.04); }
+  .blog-card-body {
+    padding: 32px;
+  }
+  .blog-title {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 22px;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+  .blog-excerpt {
+    font-size: 13px;
+    line-height: 21px;
+    color: rgba(255,255,255,0.42);
+    margin-bottom: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .blog-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: var(--line) solid rgba(255,255,255,0.07);
+  }
+  .blog-stats {
+    display: flex;
+    gap: 14px;
+  }
+  .blog-stat {
+    font-size: 12px;
+    color: rgba(255,255,255,0.30);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .blog-date {
+    font-size: 11px;
+    color: rgba(255,255,255,0.25);
+  }
+
+  /* ── SUBSCRIBE ── */
+  .subscribe-section { padding: 80px 0; }
+  .subscribe-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 32px 40px;
+    border: var(--line) solid rgba(255,255,255,0.07);
+    border-radius: var(--r);
+    background: rgba(255,255,255,0.025);
+  }
+  .subscribe-title {
+    font-family: var(--fd);
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+  .form-input {
+    flex: 1;
+    height: 44px;
+    background: rgba(255,255,255,0.05);
+    border: var(--line) solid rgba(255,255,255,0.10);
+    border-radius: 8px;
+    padding: 0 16px;
+    font-family: var(--ft);
+    font-size: 14px;
+    color: var(--white);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input::placeholder { color: rgba(255,255,255,0.28); }
+  .form-input:focus { border-color: rgba(255,255,255,0.25); }
+  .btn-subscribe {
+    height: 44px;
+    padding: 0 24px;
+    background: var(--accent);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: opacity 0.2s;
+  }
+  .btn-subscribe:hover { opacity: 0.85; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 48px 0;
+    border-top: var(--line) solid rgba(255,255,255,0.07);
+    text-align: center;
+  }
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    margin-bottom: 28px;
+  }
+  .footer-links a {
+    font-size: 12px;
+    color: rgba(255,255,255,0.30);
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: rgba(255,255,255,0.7); }
+  .footer-copy {
+    font-size: 11px;
+    color: rgba(255,255,255,0.18);
+    margin-bottom: 12px;
+  }
+  .footer-legal {
+    font-size: 10px;
+    line-height: 17px;
+    color: rgba(255,255,255,0.12);
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  /* ── REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .hero-content { padding: 0 24px 52px; }
+    .hero-name { font-size: 48px; line-height: 54px; }
+    .container { padding: 0 24px; }
+    .menu-overlay { padding: 0 24px 32px; }
+  }
+
+  @media (max-width: 768px) {
+    .posts-grid {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      border-radius: var(--r);
+      gap: 0;
+    }
+    .post-card {
+      flex: 0 0 100%;
+      scroll-snap-align: start;
+      border-right: var(--line) solid rgba(255,255,255,0.07);
+    }
+    .post-card:last-child { border-right: var(--line) solid rgba(255,255,255,0.07); }
+    .posts-dots {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 16px;
+    }
+    .dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.18);
+      transition: background 0.2s;
+    }
+    .dot.active { background: var(--accent); }
+
+    .videos-grid { grid-template-columns: 1fr; gap: 20px; }
+    .photos-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .blog-grid { grid-template-columns: 1fr; gap: 16px; }
+
+    .banner-title { font-size: 30px; line-height: 38px; }
+
+    .subscribe-row {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 24px;
+    }
+    .subscribe-title { white-space: normal; margin-right: 0; }
+    .form-input { flex: none; width: 100%; height: 48px; -webkit-appearance: none; }
+    .btn-subscribe { width: 100%; height: 48px; }
+
+    section { padding: 64px 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">lumen</a>
+  <button class="nav-burger" id="burgerBtn" aria-label="Open menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<!-- MENU OVERLAY -->
+<div class="menu-overlay" id="menuOverlay">
+<div class="menu-drawer">
+  <div class="menu-top">
+    <span class="menu-logo">lumen</span>
+    <button class="menu-close" id="menuClose">✕</button>
+  </div>
+  <nav class="menu-links">
+    <a href="#" onclick="closeMenu()">
+      <span class="menu-link-name">Home</span>
+      <span class="menu-link-num">01</span>
+    </a>
+    <a href="#calendar" onclick="closeMenu()">
+      <span class="menu-link-name">Calendar</span>
+      <span class="menu-link-num">02</span>
+    </a>
+    <a href="#videos" onclick="closeMenu()">
+      <span class="menu-link-name">Videos</span>
+      <span class="menu-link-num">03</span>
+    </a>
+    <a href="#photosets" onclick="closeMenu()">
+      <span class="menu-link-name">Photos</span>
+      <span class="menu-link-num">04</span>
+    </a>
+    <a href="#stream" onclick="closeMenu()">
+      <span class="menu-link-name">Streams</span>
+      <span class="menu-link-num">05</span>
+    </a>
+    <a href="#store" onclick="closeMenu()">
+      <span class="menu-link-name">Store</span>
+      <span class="menu-link-num">06</span>
+    </a>
+    <a href="#tip" onclick="closeMenu()">
+      <span class="menu-link-name">Tip me</span>
+      <span class="menu-link-num">07</span>
+    </a>
+    <a href="#friends" onclick="closeMenu()">
+      <span class="menu-link-name">My friends</span>
+      <span class="menu-link-num">08</span>
+    </a>
+    <a href="#blog" onclick="closeMenu()">
+      <span class="menu-link-name">Blog</span>
+      <span class="menu-link-num">09</span>
+    </a>
+  </nav>
+  <div class="menu-bottom">
+    <div class="menu-bottom-actions">
+      <button class="btn-login">Log in</button>
+      <button class="btn-join">Join</button>
+    </div>
+    <div class="menu-bottom-socials">
+      <a href="#" class="menu-social" aria-label="X">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.26 5.632 5.904-5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="#" class="menu-social" aria-label="Instagram">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="photos/shutterstock_336754337.jpg" alt="">
+  </div>
+  <div class="hero-content">
+    <div class="hero-label">Welcome</div>
+    <h1 class="hero-name">lumen</h1>
+    <p class="hero-bio">Photography, livestreams, and exclusive content. Join to get full access to everything I create.</p>
+    <div class="hero-socials">
+      <a href="#" class="hero-social" aria-label="X">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(255,255,255,0.55)"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.26 5.632 5.904-5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="#" class="hero-social" aria-label="Instagram">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(255,255,255,0.55)"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- X POSTS -->
+<section id="posts">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <div class="section-label">Social</div>
+        <h2 class="section-title">Latest posts</h2>
+      </div>
+    </div>
+    <div class="posts-grid" id="postsGrid">
+      <div class="post-card reveal">
+        <div class="post-meta">
+          <svg class="post-x-icon" viewBox="0 0 24 24" fill="rgba(255,255,255,0.35)"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.26 5.632 5.904-5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          <span class="post-date">Mar 21, 2026</span>
+        </div>
+        <p class="post-text">New photoset just dropped for members. Golden hour was everything last night. Link in bio.</p>
+      </div>
+      <div class="post-card reveal" style="transition-delay:0.08s">
+        <div class="post-meta">
+          <svg class="post-x-icon" viewBox="0 0 24 24" fill="rgba(255,255,255,0.35)"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.26 5.632 5.904-5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          <span class="post-date">Mar 18, 2026</span>
+        </div>
+        <p class="post-text">Live stream tomorrow at 9 PM ET — members only. Come hang, ask me anything, it'll be low-key.</p>
+      </div>
+      <div class="post-card reveal" style="transition-delay:0.16s">
+        <div class="post-meta">
+          <svg class="post-x-icon" viewBox="0 0 24 24" fill="rgba(255,255,255,0.35)"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.26 5.632 5.904-5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          <span class="post-date">Mar 14, 2026</span>
+        </div>
+        <p class="post-text">Finally finished editing the studio setup video. It's up now — probably my favorite thing I've made.</p>
+      </div>
+    </div>
+    <div class="posts-dots" id="postsDots" style="display:none">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEOS -->
+<section id="videos">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <div class="section-label">Watch</div>
+        <h2 class="section-title">Latest videos</h2>
+      </div>
+      <a href="#" class="see-more">See more →</a>
+    </div>
+    <div class="videos-grid">
+      <div class="video-card reveal">
+        <div class="video-thumb">
+          <img src="photos/shutterstock_326947748.jpg" alt="Behind the Lens">
+          <div class="video-duration">8:24</div>
+          <div class="video-play-icon">
+            <span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="rgba(255,255,255,0.9)"><path d="M8 5v14l11-7z"/></svg>
+            </span>
+          </div>
+        </div>
+        <div class="video-title">Behind the Lens</div>
+        <div class="video-date">March 20, 2026</div>
+      </div>
+      <div class="video-card reveal" style="transition-delay:0.08s">
+        <div class="video-thumb">
+          <img src="photos/shutterstock_326947790.jpg" alt="Natural Light Mastery">
+          <div class="video-duration">12:41</div>
+          <div class="video-play-icon">
+            <span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="rgba(255,255,255,0.9)"><path d="M8 5v14l11-7z"/></svg>
+            </span>
+          </div>
+        </div>
+        <div class="video-title">Natural Light Mastery</div>
+        <div class="video-date">March 13, 2026</div>
+      </div>
+      <div class="video-card reveal" style="transition-delay:0.16s">
+        <div class="video-thumb">
+          <img src="photos/shutterstock_3269477901.jpg" alt="Studio Setup Tour">
+          <div class="video-duration">5:18</div>
+          <div class="video-play-icon">
+            <span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="rgba(255,255,255,0.9)"><path d="M8 5v14l11-7z"/></svg>
+            </span>
+          </div>
+        </div>
+        <div class="video-title">Studio Setup Tour</div>
+        <div class="video-date">March 6, 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN BANNER -->
+<section class="banner-section">
+  <img class="banner-bg" src="photos/shutterstock_326269898.jpg" alt="">
+  <div class="banner-content">
+    <div class="banner-label reveal">Membership</div>
+    <h2 class="banner-title reveal">Everything, for members</h2>
+    <p class="banner-sub reveal">Exclusive photosets, livestreams, early access to new content, and direct messaging. One membership, all of it.</p>
+    <a href="#" class="btn-cta reveal">Join today</a>
+  </div>
+</section>
+
+<!-- PHOTOSETS -->
+<section id="photosets">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <div class="section-label">Gallery</div>
+        <h2 class="section-title">Latest photosets</h2>
+      </div>
+      <a href="#" class="see-more">See more →</a>
+    </div>
+    <div class="photos-grid">
+      <div class="photo-card reveal">
+        <div class="photo-thumb">
+          <img src="photos/shutterstock_321083300.jpg" alt="Golden Hour">
+          <div class="photoset-count">24</div>
+        </div>
+        <div class="photo-title">Golden Hour</div>
+        <div class="photo-date">March 19, 2026</div>
+      </div>
+      <div class="photo-card reveal" style="transition-delay:0.08s">
+        <div class="photo-thumb">
+          <img src="photos/shutterstock_326269898.jpg" alt="Studio Portraits">
+          <div class="photoset-count">18</div>
+        </div>
+        <div class="photo-title">Studio Portraits</div>
+        <div class="photo-date">March 12, 2026</div>
+      </div>
+      <div class="photo-card reveal" style="transition-delay:0.16s">
+        <div class="photo-thumb">
+          <img src="photos/shutterstock_326947bkbk7901.jpg" alt="Winter Warm">
+          <div class="photoset-count">31</div>
+        </div>
+        <div class="photo-title">Winter Warm</div>
+        <div class="photo-date">February 17, 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STREAM COUNTDOWN -->
+<section id="stream" class="banner-section">
+  <img class="banner-bg" src="photos/shutterstock_326947bkbk7901.jpg" alt="">
+  <div class="banner-content">
+    <div class="banner-label reveal">Late Night — Members Live</div>
+    <h2 class="banner-title reveal">Next stream</h2>
+    <p class="banner-sub reveal">Casual, unfiltered, members only. Chat and Q&A until whenever.</p>
+    <div class="countdown reveal">
+      <div class="cd-item">
+        <span class="cd-num" id="days">00</span>
+        <div class="cd-label">Days</div>
+      </div>
+      <div class="cd-item">
+        <span class="cd-num" id="hours">00</span>
+        <div class="cd-label">Hours</div>
+      </div>
+      <div class="cd-item">
+        <span class="cd-num" id="minutes">00</span>
+        <div class="cd-label">Min</div>
+      </div>
+      <div class="cd-item">
+        <span class="cd-num" id="seconds">00</span>
+        <div class="cd-label">Sec</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <div class="section-label">Writing</div>
+        <h2 class="section-title">Latest posts</h2>
+      </div>
+      <a href="#" class="see-more">See more →</a>
+    </div>
+    <div class="blog-grid">
+      <div class="blog-card reveal">
+        <div class="blog-card-img">
+          <img src="photos/shutterstock_326269898.jpg" alt="Golden Hour Series">
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-title">Why I started the Golden Hour series</div>
+          <p class="blog-excerpt">There's something about late afternoon light that I've always been drawn to. The way it turns everything it touches into something worth remembering.</p>
+          <div class="blog-footer">
+            <div class="blog-stats">
+              <span class="blog-stat">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                142
+              </span>
+              <span class="blog-stat">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18z"/></svg>
+                24
+              </span>
+            </div>
+            <span class="blog-date">Mar 14, 2026</span>
+          </div>
+        </div>
+      </div>
+      <div class="blog-card reveal" style="transition-delay:0.08s">
+        <div class="blog-card-img">
+          <img src="photos/shutterstock_321083300.jpg" alt="Favorite gear">
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-title">My favorite gear this season</div>
+          <p class="blog-excerpt">A few people asked what I've been shooting with lately, so here's the full rundown — lenses, lighting, and one piece of gear I can't live without.</p>
+          <div class="blog-footer">
+            <div class="blog-stats">
+              <span class="blog-stat">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                87
+              </span>
+              <span class="blog-stat">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18z"/></svg>
+                11
+              </span>
+            </div>
+            <span class="blog-date">Mar 7, 2026</span>
+          </div>
+        </div>
+      </div>
+      <div class="blog-card reveal" style="transition-delay:0.16s">
+        <div class="blog-card-img">
+          <img src="photos/shutterstock_336754337.jpg" alt="Spring 2026">
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-title">Spring 2026: what's coming</div>
+          <p class="blog-excerpt">New shoots, a collaboration I've been planning for months, and something I've never done live before. Here's a sneak peek at what's ahead.</p>
+          <div class="blog-footer">
+            <div class="blog-stats">
+              <span class="blog-stat">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                63
+              </span>
+              <span class="blog-stat">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18z"/></svg>
+                8
+              </span>
+            </div>
+            <span class="blog-date">Feb 28, 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBSCRIBE -->
+<section class="subscribe-section">
+  <div class="container">
+    <form class="subscribe-row reveal" onsubmit="return false">
+      <div class="subscribe-title">Stay in touch</div>
+      <input type="text" class="form-input" placeholder="Your name">
+      <input type="email" class="form-input" placeholder="Your email">
+      <button type="submit" class="btn-subscribe">Subscribe →</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-links">
+      <a href="#">Customer support</a>
+      <a href="#">Billing support</a>
+      <a href="#">Terms of service</a>
+      <a href="#">Privacy policy</a>
+    </div>
+    <p class="footer-copy">© 2026 Adultcentro. All rights reserved. Powered by Modelcentro</p>
+    <p class="footer-legal">All models appearing on this website are 18 years of age or older. In compliance with the requirements of 18 U.S.C. 2257 and associated regulations, all producers of any and all content featured on this site are available upon request. This site contains age-restricted materials.</p>
+  </div>
+</footer>
+
+<script>
+  // ── MENU ──
+  const burger = document.getElementById('burgerBtn');
+  const menuOverlay = document.getElementById('menuOverlay');
+  const menuClose = document.getElementById('menuClose');
+
+  function openMenu() {
+    menuOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    menuOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  window.closeMenu = closeMenu;
+
+  burger.addEventListener('click', openMenu);
+  menuClose.addEventListener('click', closeMenu);
+
+  // Close on Escape key
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+  // Close on click outside (on the overlay backdrop, not its children)
+  menuOverlay.addEventListener('mousedown', e => {
+    if (e.target === menuOverlay) closeMenu();
+  });
+
+  // ── COUNTDOWN ──
+  const streamTarget = new Date('2026-03-29T21:00:00-05:00');
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  const daysEl = document.getElementById('days');
+  const hoursEl = document.getElementById('hours');
+  const minutesEl = document.getElementById('minutes');
+  const secondsEl = document.getElementById('seconds');
+
+  function tick() {
+    const diff = streamTarget - new Date();
+    if (diff <= 0) {
+      daysEl.textContent = hoursEl.textContent = minutesEl.textContent = secondsEl.textContent = '00';
+      return;
+    }
+    daysEl.textContent    = pad(Math.floor(diff / 86400000));
+    hoursEl.textContent   = pad(Math.floor((diff % 86400000) / 3600000));
+    minutesEl.textContent = pad(Math.floor((diff % 3600000) / 60000));
+    secondsEl.textContent = pad(Math.floor((diff % 60000) / 1000));
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  // ── MOBILE POST CAROUSEL DOTS ──
+  const postsGrid = document.getElementById('postsGrid');
+  const postsDots = document.getElementById('postsDots');
+  const dots = postsDots ? postsDots.querySelectorAll('.dot') : [];
+
+  function checkMobile() {
+    if (window.innerWidth <= 768) {
+      postsDots.style.display = 'flex';
+    } else {
+      postsDots.style.display = 'none';
+    }
+  }
+  checkMobile();
+  window.addEventListener('resize', checkMobile);
+
+  if (postsGrid && dots.length) {
+    postsGrid.addEventListener('scroll', function() {
+      const cardWidth = postsGrid.offsetWidth;
+      const index = Math.round(postsGrid.scrollLeft / cardWidth);
+      dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    }, { passive: true });
+  }
+
+  // ── REVEAL ON SCROLL ──
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
