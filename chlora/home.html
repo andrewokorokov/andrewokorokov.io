@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Chlora</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Onest:wght@100..900&family=Sedgwick+Ave+Display&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="guest">
+
+<!-- ─── NAVIGATION ──────────────────────────────────────────── -->
+<nav class="nav">
+	<div class="wrap nav-inner">
+
+		<a href="#" class="nav-logo">Chlora</a>
+
+		<ul class="nav-menu">
+			<li><a href="#" class="active">Home</a></li>
+			<li><a href="#">Videos</a></li>
+			<li><a href="#">Photos</a></li>
+			<li><a href="#">Streams</a></li>
+			<li><a href="#">Blog</a></li>
+			<li class="more-item">
+				<button class="more-btn">
+					More
+					<img src="../icons/ArrowDropDown.svg" alt="">
+				</button>
+				<ul class="more-dropdown">
+					<li><a href="#">Store</a></li>
+					<li><a href="#">Tip me</a></li>
+					<li><a href="#">My friends</a></li>
+				</ul>
+			</li>
+		</ul>
+
+		<!-- Guest auth -->
+		<div class="nav-auth nav-guest guest-only">
+			<button class="btn-ghost" id="login-btn">Login</button>
+			<button class="btn-accent" id="join-btn">Join</button>
+		</div>
+
+		<!-- Logged-in user icons -->
+		<div class="nav-auth nav-user loggedin-only">
+			<a href="#" class="icon-btn" title="Favorites">
+				<img src="../icons/Favorite.svg" alt="Favorites">
+			</a>
+			<a href="#" class="icon-btn" title="Purchases">
+				<img src="../icons/ShopingCart.svg" alt="Purchases">
+			</a>
+			<a href="#" class="icon-btn" title="Messages">
+				<img src="../icons/Message.svg" alt="Messages">
+			</a>
+			<a href="#" class="icon-btn" title="Settings">
+				<img src="../icons/Settings.svg" alt="Settings">
+			</a>
+			<button class="icon-btn" id="logout-btn" title="Logout">
+				<img src="../icons/SignOut.svg" alt="Logout">
+			</button>
+		</div>
+
+		<!-- Mobile burger -->
+		<button class="burger" id="burger-btn" aria-label="Open menu">
+			<img src="../icons/BurgerMenu.svg" alt="">
+		</button>
+
+	</div>
+</nav>
+
+<!-- ─── MOBILE DRAWER ──────────────────────────────────────── -->
+<div class="drawer" id="drawer" role="dialog" aria-modal="true">
+
+	<button class="drawer-close" id="drawer-close" aria-label="Close menu">
+		<img src="../icons/XMedium.svg" alt="">
+	</button>
+
+	<ul class="drawer-menu">
+		<li><a href="#" class="active">Home</a></li>
+		<li><a href="#">Videos</a></li>
+		<li><a href="#">Photos</a></li>
+		<li><a href="#">Streams</a></li>
+		<li><a href="#">Blog</a></li>
+		<li><a href="#">Store</a></li>
+		<li><a href="#">Tip me</a></li>
+		<li><a href="#">My friends</a></li>
+	</ul>
+
+	<!-- Logged-in user menu (text links) -->
+	<ul class="drawer-user-menu loggedin-only">
+		<li><a href="#">Favorites</a></li>
+		<li><a href="#">Purchases</a></li>
+		<li><a href="#">Messages</a></li>
+		<li><a href="#">Settings</a></li>
+	</ul>
+
+	<div class="drawer-auth">
+		<!-- Guest -->
+		<button class="btn-ghost guest-only" id="drawer-login-btn">Login</button>
+		<button class="btn-accent guest-only" id="drawer-join-btn">Join</button>
+		<!-- Logged in -->
+		<button class="btn-ghost loggedin-only" id="drawer-logout-btn">Logout</button>
+	</div>
+
+</div>
+<div class="drawer-overlay" id="drawer-overlay"></div>
+
+
+<main>
+
+<!-- ─── HERO ────────────────────────────────────────────────── -->
+<section class="hero">
+	<div class="wrap hero-inner">
+
+		<div class="hero-text">
+			<h1>Welcome to<br>my fanclub</h1>
+			<p>Exclusive content, raw moments, and a direct connection you won't find anywhere else. This is my world — and you're invited in.</p>
+			<a href="#" class="link-arrow">
+				More about me
+				<img src="../icons/ArrowRightSmall.svg" alt="">
+			</a>
+			<div class="hero-socials">
+				<a href="#" aria-label="Instagram">
+					<img src="../icons/SocialInstagram.svg" alt="Instagram">
+				</a>
+				<a href="#" aria-label="X">
+					<img src="../icons/SocialX.svg" alt="X">
+				</a>
+				<a href="#" aria-label="Snapchat">
+					<img src="../icons/SocialSnapchat.svg" alt="Snapchat">
+				</a>
+			</div>
+		</div>
+
+		<div class="hero-video">
+			<img class="hero-video-thumb" src="../photos/landscape/Layer 2.jpg" alt="Welcome video">
+			<button class="play-btn" id="play-hero" aria-label="Play welcome video">
+				<img src="../icons/PlayerPlay.svg" alt="">
+			</button>
+		</div>
+
+	</div>
+	<img class="hero-bg" src="../photos/landscape/Layer 1.jpg" alt="">
+</section>
+
+
+<!-- ─── COUNTERS ─────────────────────────────────────────────── -->
+<section class="counters">
+	<div class="wrap counters-inner">
+		<div class="counter-item">
+			<span class="counter-number">248</span>
+			<span class="counter-label">Videos</span>
+		</div>
+		<div class="counter-divider"></div>
+		<div class="counter-item">
+			<span class="counter-number">184</span>
+			<span class="counter-label">Photosets</span>
+		</div>
+		<div class="counter-divider"></div>
+		<div class="counter-item">
+			<span class="counter-number">312</span>
+			<span class="counter-label">Posts</span>
+		</div>
+	</div>
+</section>
+
+
+<!-- ─── LATEST VIDEOS ─────────────────────────────────────────── -->
+<section class="section-videos">
+	<div class="wrap">
+
+		<div class="section-header">
+			<h2>Latest Videos</h2>
+			<a href="#" class="see-all">
+				See all
+				<img src="../icons/ArrowRightSmall.svg" alt="">
+			</a>
+		</div>
+
+		<div class="video-grid">
+
+			<div class="video-card">
+				<div class="video-thumb">
+					<img src="../photos/landscape/Layer 4.jpg" alt="Behind the Scenes">
+					<div class="video-play">
+						<button class="video-play-btn" aria-label="Play">
+							<img src="../icons/PlayerPlay.svg" alt="">
+						</button>
+					</div>
+					<span class="video-duration">12:34</span>
+				</div>
+				<div class="video-info">
+					<span class="video-title">Behind the Scenes — Studio Day in the City</span>
+					<span class="video-date">Apr 5, 2026</span>
+				</div>
+			</div>
+
+			<div class="video-card">
+				<div class="video-thumb">
+					<img src="../photos/landscape/Layer 5.jpg" alt="Summer Vibes">
+					<div class="video-play">
+						<button class="video-play-btn" aria-label="Play">
+							<img src="../icons/PlayerPlay.svg" alt="">
+						</button>
+					</div>
+					<span class="video-duration">8:47</span>
+				</div>
+				<div class="video-info">
+					<span class="video-title">Summer Vibes — Golden Hour Shoot</span>
+					<span class="video-date">Mar 28, 2026</span>
+				</div>
+			</div>
+
+			<div class="video-card">
+				<div class="video-thumb">
+					<img src="../photos/landscape/Layer 6.jpg" alt="Morning Routine">
+					<div class="video-play">
+						<button class="video-play-btn" aria-label="Play">
+							<img src="../icons/PlayerPlay.svg" alt="">
+						</button>
+					</div>
+					<span class="video-duration">15:22</span>
+				</div>
+				<div class="video-info">
+					<span class="video-title">My Morning Routine — No Filter Edition</span>
+					<span class="video-date">Mar 21, 2026</span>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+
+<!-- ─── JOIN BANNER (guests only) ─────────────────────────────── -->
+<section class="join-banner guest-only">
+	<div class="banner-content">
+		<div class="wrap">
+			<h2>Get unlimited access to all content</h2>
+			<p>Over 400 exclusive videos, photosets, and personal updates waiting for you.</p>
+			<a href="#" class="btn-accent-large">Join now!</a>
+		</div>
+	</div>
+	<img class="join-bg" src="../photos/landscape/Layer 3.jpg" alt="">
+</section>
+
+
+<!-- ─── LATEST PHOTOSETS ──────────────────────────────────────── -->
+<section class="section-photos">
+	<div class="wrap">
+
+		<div class="section-header">
+			<h2>Latest Photosets</h2>
+			<a href="#" class="see-all">
+				See all
+				<img src="../icons/ArrowRightSmall.svg" alt="">
+			</a>
+		</div>
+
+		<div class="photo-grid">
+
+			<div class="photo-card">
+				<div class="photo-thumb">
+					<img src="../photos/portrait/Layer 11.jpg" alt="Golden Hour">
+					<span class="photo-badge">
+						<img src="../icons/PhotoCamera.svg" alt="">
+						48
+					</span>
+				</div>
+				<div class="photo-info">
+					<span class="photo-title">Golden Hour Rooftop Session</span>
+					<span class="photo-date">Apr 7, 2026</span>
+				</div>
+			</div>
+
+			<div class="photo-card">
+				<div class="photo-thumb">
+					<img src="../photos/portrait/Layer 12.jpg" alt="Studio Shoot">
+					<span class="photo-badge">
+						<img src="../icons/PhotoCamera.svg" alt="">
+						32
+					</span>
+				</div>
+				<div class="photo-info">
+					<span class="photo-title">Studio Shoot — Black & White</span>
+					<span class="photo-date">Apr 1, 2026</span>
+				</div>
+			</div>
+
+			<div class="photo-card">
+				<div class="photo-thumb">
+					<img src="../photos/portrait/Layer 13.jpg" alt="City Nights">
+					<span class="photo-badge">
+						<img src="../icons/PhotoCamera.svg" alt="">
+						56
+					</span>
+				</div>
+				<div class="photo-info">
+					<span class="photo-title">City Nights — Neon &amp; Shadows</span>
+					<span class="photo-date">Mar 24, 2026</span>
+				</div>
+			</div>
+
+			<div class="photo-card">
+				<div class="photo-thumb">
+					<img src="../photos/portrait/Layer 14.jpg" alt="Summer Collection">
+					<span class="photo-badge">
+						<img src="../icons/PhotoCamera.svg" alt="">
+						24
+					</span>
+				</div>
+				<div class="photo-info">
+					<span class="photo-title">Summer Collection Preview</span>
+					<span class="photo-date">Mar 17, 2026</span>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+
+<!-- ─── NEXT STREAM ───────────────────────────────────────────── -->
+<section class="section-stream">
+	<div class="wrap">
+		<div class="stream-inner">
+
+			<div class="stream-info">
+				<span class="stream-label">Next Stream</span>
+				<h2>Late Night Q&amp;A Session</h2>
+				<span class="stream-date">Saturday, April 19, 2026 — 9:00 PM EST</span>
+			</div>
+
+			<div class="countdown" id="countdown">
+				<div class="countdown-unit">
+					<span class="countdown-num" id="cd-days">00</span>
+					<span class="countdown-unit-label">Days</span>
+				</div>
+				<span class="countdown-sep">:</span>
+				<div class="countdown-unit">
+					<span class="countdown-num" id="cd-hours">00</span>
+					<span class="countdown-unit-label">Hours</span>
+				</div>
+				<span class="countdown-sep">:</span>
+				<div class="countdown-unit">
+					<span class="countdown-num" id="cd-mins">00</span>
+					<span class="countdown-unit-label">Mins</span>
+				</div>
+				<span class="countdown-sep">:</span>
+				<div class="countdown-unit">
+					<span class="countdown-num" id="cd-secs">00</span>
+					<span class="countdown-unit-label">Secs</span>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+
+<!-- ─── LATEST POSTS ──────────────────────────────────────────── -->
+<section class="section-posts">
+	<div class="wrap">
+
+		<div class="section-header">
+			<h2>Latest Posts</h2>
+			<a href="#" class="see-all">
+				See all
+				<img src="../icons/ArrowRightSmall.svg" alt="">
+			</a>
+		</div>
+
+		<div class="posts-grid">
+
+			<article class="post-card">
+				<div class="post-thumb">
+					<img src="../photos/landscape/Layer 7.jpg" alt="">
+				</div>
+				<div class="post-body">
+					<span class="post-date">Apr 6, 2026</span>
+					<h3 class="post-title">Big Announcement — Something New is Coming</h3>
+					<p class="post-excerpt">I've been working on something major behind the scenes for the past few months. Can't say too much yet, but trust me — you're going to love what's coming next week...</p>
+					<div class="post-meta">
+						<div class="post-stats">
+							<span class="post-stat">
+								<img src="../icons/LikeFilled.svg" alt=""> 842
+							</span>
+							<span class="post-stat">
+								<img src="../icons/Comment.svg" alt=""> 134
+							</span>
+						</div>
+					</div>
+				</div>
+			</article>
+
+			<article class="post-card">
+				<div class="post-thumb">
+					<img src="../photos/landscape/Layer 8.jpg" alt="">
+				</div>
+				<div class="post-body">
+					<span class="post-date">Mar 30, 2026</span>
+					<h3 class="post-title">Life Update — Where I've Been This Month</h3>
+					<p class="post-excerpt">March was wild. Between two photoshoots, traveling to three different cities, and some personal stuff I've been processing, I haven't had a moment to breathe...</p>
+					<div class="post-meta">
+						<div class="post-stats">
+							<span class="post-stat">
+								<img src="../icons/LikeFilled.svg" alt=""> 617
+							</span>
+							<span class="post-stat">
+								<img src="../icons/Comment.svg" alt=""> 98
+							</span>
+						</div>
+					</div>
+				</div>
+			</article>
+
+			<article class="post-card">
+				<div class="post-body">
+					<span class="post-date">Mar 22, 2026</span>
+					<h3 class="post-title">Thank You — 1 Million and Counting</h3>
+					<p class="post-excerpt">I still can't believe we hit one million. Sitting here re-reading your messages and I'm genuinely overwhelmed. This community means everything to me. Thank you for showing up, every single day...</p>
+					<div class="post-meta">
+						<div class="post-stats">
+							<span class="post-stat">
+								<img src="../icons/LikeFilled.svg" alt=""> 2.1k
+							</span>
+							<span class="post-stat">
+								<img src="../icons/Comment.svg" alt=""> 389
+							</span>
+						</div>
+					</div>
+				</div>
+			</article>
+
+		</div>
+	</div>
+</section>
+
+
+<!-- ─── LATEST X POSTS ────────────────────────────────────────── -->
+<section class="section-x">
+	<div class="wrap">
+
+		<div class="section-header">
+			<h2>From X</h2>
+			<a href="#" class="see-all">
+				Follow me
+				<img src="../icons/ArrowRightSmall.svg" alt="">
+			</a>
+		</div>
+
+		<div class="x-posts" id="x-posts">
+
+			<div class="x-card">
+				<div class="x-header">
+					<div class="x-icon">
+						<img src="../icons/SocialX.svg" alt="">
+					</div>
+					<span class="x-handle">@chlora</span>
+				</div>
+				<p class="x-text">Just wrapped an incredible shoot. The light, the energy, the whole vibe — couldn't have asked for a better day. New set dropping this week ✦</p>
+				<span class="x-date">Apr 8, 2026</span>
+			</div>
+
+			<div class="x-card">
+				<div class="x-header">
+					<div class="x-icon">
+						<img src="../icons/SocialX.svg" alt="">
+					</div>
+					<span class="x-handle">@chlora</span>
+				</div>
+				<p class="x-text">Stream tonight at 9PM EST — Q&amp;A, some surprises, and probably too much coffee. Come hang with me.</p>
+				<span class="x-date">Apr 5, 2026</span>
+			</div>
+
+			<div class="x-card">
+				<div class="x-header">
+					<div class="x-icon">
+						<img src="../icons/SocialX.svg" alt="">
+					</div>
+					<span class="x-handle">@chlora</span>
+				</div>
+				<p class="x-text">1,000,000. I have no words. Thank you for every like, every comment, every message. You've built something real here with me.</p>
+				<span class="x-date">Mar 22, 2026</span>
+			</div>
+
+		</div>
+
+		<div class="x-dots" id="x-dots"></div>
+
+	</div>
+</section>
+
+
+<!-- ─── STAY IN TOUCH (guests only) ──────────────────────────── -->
+<section class="section-subscribe guest-only">
+	<div class="wrap">
+		<h2>Stay in Touch</h2>
+		<p>Get notified about new content, upcoming streams, and exclusive offers.</p>
+		<form class="subscribe-form" onsubmit="return false">
+			<input type="text" placeholder="Your name" autocomplete="given-name">
+			<input type="email" placeholder="Your email" autocomplete="email">
+			<button type="submit" class="btn-accent">Subscribe</button>
+		</form>
+	</div>
+</section>
+
+</main>
+
+
+<!-- ─── FOOTER ────────────────────────────────────────────────── -->
+<footer class="footer">
+	<div class="wrap footer-inner">
+		<p class="footer-copyright">© Copyright 2026 Adultcentro. All rights reserved. Powered by Modelcentro</p>
+		<p class="footer-legal">All persons depicted herein were at least 18 years of age at the time of production. 18 U.S.C. 2257 Record-Keeping Requirements Compliance Statement available upon request. This site contains age-restricted content. By entering, you confirm you are 18 years or older.</p>
+		<nav class="footer-links">
+			<a href="#">Customer support</a>
+			<a href="#">Billing support</a>
+			<a href="#">Terms of service</a>
+			<a href="#">Privacy policy</a>
+		</nav>
+	</div>
+</footer>
+
+
+<!-- ─── VIDEO LIGHTBOX ───────────────────────────────────────── -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Video player">
+	<div class="lightbox-inner">
+		<button class="lightbox-close" id="lightbox-close" aria-label="Close video">
+			<img src="../icons/XLarge.svg" alt="">
+		</button>
+		<p class="lightbox-placeholder">Video player coming soon</p>
+	</div>
+</div>
+
+
+<script src="js/main.js"></script>
+</body>
+</html>
