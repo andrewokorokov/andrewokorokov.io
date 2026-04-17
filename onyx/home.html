@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Onyx</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Barlow+Condensed:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/home.css" />
+</head>
+<body>
+
+<!-- ==================== NAV ==================== -->
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+
+    <a href="home.html" class="nav-logo">Onyx</a>
+
+    <div class="nav-right">
+
+      <!-- Guest state -->
+      <div class="nav-guest">
+        <button class="btn-outline js-login">Login</button>
+        <button class="btn-solid js-join">Join</button>
+      </div>
+
+      <!-- Logged in state -->
+      <div class="nav-logged">
+        <a href="favorites.html" class="icon-btn" title="Favorites">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M10.2229 3.26625C10.9679 1.82209 13.0328 1.82193 13.7776 3.26625L15.8714 7.32875L20.3294 8.11879C21.8984 8.39689 22.5277 10.3086 21.4309 11.4645L18.2503 14.8161L18.8968 19.4166C19.1212 21.0146 17.4582 22.2066 16.0169 21.4811L12.0003 19.4596L7.98367 21.4811C6.54235 22.2067 4.87938 21.0146 5.10379 19.4166L5.75027 14.8161L2.56961 11.4645C1.47248 10.3085 2.10185 8.39679 3.67117 8.11879L8.12918 7.32875L10.2229 3.26625ZM9.90652 8.24477C9.62067 8.79945 9.09223 9.18953 8.47781 9.29848L4.01981 10.0875L7.20047 13.4391C7.61988 13.881 7.81523 14.4901 7.73074 15.0934L7.08426 19.695L11.1009 17.6725C11.6665 17.3879 12.3341 17.3878 12.8997 17.6725L16.9163 19.695L16.2698 15.0934C16.1853 14.49 16.3806 13.881 16.8001 13.4391L19.9807 10.0875L15.5227 9.29848C14.9082 9.18961 14.3799 8.79955 14.094 8.24477L12.0003 4.18227L9.90652 8.24477Z"/>
+          </svg>
+        </a>
+        <a href="purchases.html" class="icon-btn" title="Purchases">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M8 17C9.10457 17 10 17.8954 10 19C10 20.1046 9.10457 21 8 21C6.89543 21 6 20.1046 6 19C6 17.8954 6.89543 17 8 17ZM17 17C18.1046 17 19 17.8954 19 19C19 20.1046 18.1046 21 17 21C15.8954 21 15 20.1046 15 19C15 17.8954 15.8954 17 17 17ZM3.30566 2C4.77218 2 6.02355 3.06028 6.26465 4.50684L6.50098 5.92578L16.5508 4.62988C19.5021 4.24927 21.8209 7.11021 20.8379 9.91895L19.6475 13.3213C19.0859 14.9256 17.5709 16 15.8711 16H9.54102C7.58582 15.9998 5.91714 14.5859 5.5957 12.6572L4.29199 4.83594C4.21163 4.35375 3.7945 4 3.30566 4H3C2.44772 4 2 3.55228 2 3C2 2.44772 2.44772 2 3 2H3.30566ZM18.9502 9.25781C19.4414 7.85353 18.2822 6.42393 16.8066 6.61426L6.83008 7.90137L7.56836 12.3291C7.72917 13.2932 8.56358 13.9998 9.54102 14H15.8711C16.7208 14 17.4779 13.463 17.7588 12.6611L18.9502 9.25781Z"/>
+          </svg>
+        </a>
+        <a href="messages.html" class="icon-btn" title="Messages">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M16 3C18.7614 3 21 5.23858 21 8V22C21 22.3466 20.8202 22.6684 20.5254 22.8506C20.2306 23.0327 19.8626 23.0495 19.5527 22.8945L15.9746 21.1055C15.836 21.0362 15.6833 21.0001 15.5283 21H8C5.23858 21 3 18.7614 3 16V8C3 5.23858 5.23858 3 8 3H16ZM8 5C6.34315 5 5 6.34315 5 8V16C5 17.6569 6.34315 19 8 19H15.5283C15.9937 19.0001 16.4528 19.1083 16.8691 19.3164L19 20.3818V8C19 6.34315 17.6569 5 16 5H8Z"/>
+          </svg>
+        </a>
+        <a href="account.html" class="icon-btn" title="Settings">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM10 17C8.91931 17 8.0405 17.8572 8.00293 18.9287C9.17923 19.6088 10.5436 20 12 20C13.4561 20 14.82 19.6085 15.9961 18.9287C15.9585 17.8572 15.0807 17 14 17H10ZM12 4C7.58172 4 4 7.58172 4 12C4 14.1674 4.86292 16.1325 6.2627 17.5732C6.83738 16.0688 8.29358 15 10 15H14C15.7063 15 17.1616 16.0689 17.7363 17.5732C19.1364 16.1325 20 14.1677 20 12C20 7.58172 16.4183 4 12 4ZM12 6C14.2091 6 16 7.79086 16 10C16 12.2091 14.2091 14 12 14C9.79086 14 8 12.2091 8 10C8 7.79086 9.79086 6 12 6ZM12 8C10.8954 8 10 8.89543 10 10C10 11.1046 10.8954 12 12 12C13.1046 12 14 11.1046 14 10C14 8.89543 13.1046 8 12 8Z"/>
+          </svg>
+        </a>
+        <button class="icon-btn js-logout" title="Logout">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M16.8799 4.37109C17.2273 3.94181 17.8568 3.87537 18.2861 4.22266C20.5497 6.05432 22 8.85817 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 8.85817 3.45032 6.05432 5.71387 4.22266C6.14319 3.87537 6.77274 3.94181 7.12012 4.37109C7.46742 4.80042 7.40097 5.42997 6.97168 5.77734C5.15723 7.24559 4 9.4873 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 9.64423 18.9827 7.52681 17.3604 6.06152L17.0283 5.77734L16.9521 5.70898C16.5924 5.35201 16.5543 4.77359 16.8799 4.37109ZM12 2C12.5523 2 13 2.44772 13 3V11C13 11.5523 12.5523 12 12 12C11.4477 12 11 11.5523 11 11V3C11 2.44772 11.4477 2 12 2Z"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Burger -->
+      <button class="nav-burger" id="nav-burger" aria-label="Open menu">
+        <span></span>
+        <span></span>
+      </button>
+
+    </div>
+  </div>
+</header>
+
+<!-- ==================== DRAWER ==================== -->
+<div class="drawer-overlay" id="drawer-overlay"></div>
+
+<nav class="drawer" id="drawer" aria-label="Main navigation">
+  <div class="drawer-head">
+    <button class="drawer-close" id="drawer-close" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill="currentColor" d="M15.293 7.29303C15.6835 6.90251 16.3165 6.90251 16.707 7.29303C17.0975 7.68356 17.0975 8.31659 16.707 8.70709L13.4141 12.0001L16.707 15.293L16.7754 15.3692C17.0957 15.762 17.0731 16.341 16.707 16.7071C16.3409 17.0732 15.7619 17.0957 15.3691 16.7755L15.293 16.7071L12 13.4141L8.70703 16.7071C8.31653 17.0976 7.6835 17.0976 7.29297 16.7071C6.90245 16.3166 6.90245 15.6836 7.29297 15.293L10.5859 12.0001L7.29297 8.70709C6.90245 8.31657 6.90245 7.68355 7.29297 7.29303C7.68349 6.90251 8.31651 6.90251 8.70703 7.29303L12 10.586L15.293 7.29303Z"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="drawer-nav">
+    <a href="home.html" class="active">Home</a>
+    <a href="calendar.html">Calendar</a>
+    <a href="videos.html">Videos</a>
+    <a href="photos.html">Photos</a>
+    <a href="streams.html">Streams</a>
+    <a href="store.html">Store</a>
+    <a href="tip-me.html">Tip me</a>
+    <a href="posts.html">Blog</a>
+  </div>
+
+  <!-- Guest drawer footer -->
+  <div class="drawer-guest">
+    <hr class="drawer-divider" />
+    <div class="drawer-footer">
+      <div class="drawer-login-row">
+        <button class="btn-outline js-login">Login</button>
+        <button class="btn-solid js-join">Join</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logged in drawer footer -->
+  <div class="drawer-logged">
+    <hr class="drawer-divider" />
+    <div class="drawer-nav">
+      <a href="favorites.html">Favorites</a>
+      <a href="purchases.html">Purchases</a>
+      <a href="messages.html">Messages</a>
+      <a href="account.html">Settings</a>
+    </div>
+    <hr class="drawer-divider" />
+    <div class="drawer-footer">
+      <button class="btn-outline js-logout" style="width: 100%;">Logout</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ==================== MAIN ==================== -->
+<main class="page-body">
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="hero-text">
+      <span class="hero-label">Welcome to my fanclub</span>
+      <h1 class="hero-title">Where every<br>moment is<br>exclusive</h1>
+      <p class="hero-bio">Step inside a world curated just for you. Intimate videos, personal stories, and a direct connection — only here, only for members.</p>
+      <a href="about-me.html" class="hero-more">
+        More about me
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill="currentColor" d="M15.793 8.29304C16.1835 7.90251 16.8165 7.90251 17.207 8.29304L19.5 10.586C20.2809 11.367 20.2809 12.6331 19.5 13.4141L17.207 15.7071L17.1309 15.7755C16.7381 16.0957 16.1591 16.0732 15.793 15.7071C15.4269 15.341 15.4043 14.762 15.7246 14.3692L15.793 14.293L17.0859 13.0001H5C4.44774 13.0001 4.00004 12.5523 4 12.0001C4 11.4478 4.44772 11.0001 5 11.0001H17.0859L15.793 9.7071C15.4025 9.3166 15.4025 8.68357 15.793 8.29304Z"/>
+        </svg>
+      </a>
+      <div class="hero-socials">
+        <a href="#" class="hero-social" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4zm9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/>
+          </svg>
+        </a>
+        <a href="#" class="hero-social" aria-label="X">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.736-8.851L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        <a href="#" class="hero-social" aria-label="Snapchat">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M12.206.793c.99 0 4.347.276 5.93 3.821.5 1.144.415 3.016.35 4.296l-.007.145c-.007.12.01.172.05.172.317 0 .966-.161 1.303-.281.186-.065.394.025.394.212a.28.28 0 0 1-.007.063l-.007.029c-.088.39-.376 1.137-1.428 1.51-.068.025-.132.05-.195.076.006.07.015.14.026.21.15 1.048.575 2.85 2.434 3.618a.38.38 0 0 1-.179.743c-.06 0-2.4-.476-4.072.92-.7.595-1.192 1.564-1.564 2.497-.14.35-.268.698-.384 1.045-.103.305-.32.484-.603.484a1.14 1.14 0 0 1-.292-.039c-.42-.114-1.09-.335-1.744-.406-.356-.04-.715-.06-1.072-.06-.36 0-.72.02-1.077.06-.654.07-1.325.292-1.744.406-.1.027-.196.04-.293.04-.283 0-.5-.179-.603-.484a31.6 31.6 0 0 0-.384-1.045c-.372-.933-.864-1.902-1.564-2.497-1.672-1.396-4.012-.92-4.072-.92a.38.38 0 0 1-.179-.744c1.86-.768 2.285-2.57 2.434-3.618.01-.07.019-.14.026-.21-.063-.026-.127-.05-.195-.076C3.07 9.85 2.782 9.103 2.694 8.713l-.007-.029a.28.28 0 0 1-.007-.063c0-.187.208-.277.394-.212.337.12.987.281 1.303.281.04 0 .057-.052.05-.172l-.007-.145c-.065-1.28-.15-3.152.35-4.296C6.458 1.07 9.815.793 10.806.793a2.92 2.92 0 0 1 .7.056 2.92 2.92 0 0 1 .7-.056z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-media">
+      <img src="../photos/landscape/Layer 1.jpg" alt="Welcome preview" />
+      <div class="hero-play">
+        <button class="hero-play-btn js-play" data-src="../photos/landscape/Layer 1.jpg" aria-label="Play welcome video">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M8 5.14v14l11-7-11-7z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── COUNTERS ── -->
+  <div class="counters">
+    <div class="wrap">
+      <div class="counters-inner">
+        <div class="counter-item">
+          <span class="counter-num">284</span>
+          <span class="counter-label">Videos</span>
+        </div>
+        <div class="counter-item">
+          <span class="counter-num">1.2k</span>
+          <span class="counter-label">Photosets</span>
+        </div>
+        <div class="counter-item">
+          <span class="counter-num">96</span>
+          <span class="counter-label">Posts</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── LATEST VIDEOS ── -->
+  <section class="section-videos">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="section-title">Latest Videos</span>
+        <a href="videos.html" class="section-link">
+          See all
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M15.793 8.29304C16.1835 7.90251 16.8165 7.90251 17.207 8.29304L19.5 10.586C20.2809 11.367 20.2809 12.6331 19.5 13.4141L17.207 15.7071L17.1309 15.7755C16.7381 16.0957 16.1591 16.0732 15.793 15.7071C15.4269 15.341 15.4043 14.762 15.7246 14.3692L15.793 14.293L17.0859 13.0001H5C4.44774 13.0001 4.00004 12.5523 4 12.0001C4 11.4478 4.44772 11.0001 5 11.0001H17.0859L15.793 9.7071C15.4025 9.3166 15.4025 8.68357 15.793 8.29304Z"/>
+          </svg>
+        </a>
+      </div>
+      <div class="video-grid">
+
+        <div class="video-card">
+          <div class="video-thumb">
+            <img src="../photos/landscape/Layer 2.jpg" alt="Behind the lens" />
+            <div class="video-play-overlay">
+              <div class="video-play-circle">
+                <svg viewBox="0 0 24 24" fill="none"><path fill="currentColor" d="M8 5.14v14l11-7-11-7z"/></svg>
+              </div>
+            </div>
+            <span class="video-duration">12:38</span>
+          </div>
+          <div class="video-title">Behind the lens</div>
+          <div class="video-date">Apr 12, 2026</div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-thumb">
+            <img src="../photos/landscape/Layer 3.jpg" alt="Golden hour session" />
+            <div class="video-play-overlay">
+              <div class="video-play-circle">
+                <svg viewBox="0 0 24 24" fill="none"><path fill="currentColor" d="M8 5.14v14l11-7-11-7z"/></svg>
+              </div>
+            </div>
+            <span class="video-duration">8:15</span>
+          </div>
+          <div class="video-title">Golden hour session</div>
+          <div class="video-date">Apr 9, 2026</div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-thumb">
+            <img src="../photos/landscape/Layer 4.jpg" alt="Midnight exclusive" />
+            <div class="video-play-overlay">
+              <div class="video-play-circle">
+                <svg viewBox="0 0 24 24" fill="none"><path fill="currentColor" d="M8 5.14v14l11-7-11-7z"/></svg>
+              </div>
+            </div>
+            <span class="video-duration">21:04</span>
+          </div>
+          <div class="video-title">Midnight exclusive</div>
+          <div class="video-date">Apr 5, 2026</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── JOIN BANNER (guest only) ── -->
+  <section class="join-banner guest-only">
+    <div class="join-content wrap">
+      <span class="join-label">Membership</span>
+      <h2 class="join-title">Unlock everything,<br>starting today</h2>
+      <p class="join-sub">Full library access, live streams, direct messages — one membership, no limits.</p>
+      <button class="btn-join-cta js-join">Join now</button>
+    </div>
+    <img class="join-bg" src="../photos/landscape/Layer 5.jpg" alt="" aria-hidden="true" />
+  </section>
+
+  <!-- ── LATEST PHOTOSETS ── -->
+  <section class="section-photos">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="section-title">Latest Photos</span>
+        <a href="photos.html" class="section-link">
+          See all
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M15.793 8.29304C16.1835 7.90251 16.8165 7.90251 17.207 8.29304L19.5 10.586C20.2809 11.367 20.2809 12.6331 19.5 13.4141L17.207 15.7071L17.1309 15.7755C16.7381 16.0957 16.1591 16.0732 15.793 15.7071C15.4269 15.341 15.4043 14.762 15.7246 14.3692L15.793 14.293L17.0859 13.0001H5C4.44774 13.0001 4.00004 12.5523 4 12.0001C4 11.4478 4.44772 11.0001 5 11.0001H17.0859L15.793 9.7071C15.4025 9.3166 15.4025 8.68357 15.793 8.29304Z"/>
+          </svg>
+        </a>
+      </div>
+      <div class="photo-grid">
+
+        <div class="photo-card">
+          <div class="photo-thumb">
+            <img src="../photos/portrait/Layer 11.jpg" alt="Studio series vol. 1" />
+            <span class="photo-count">24</span>
+          </div>
+          <div class="photo-title">Studio series vol. 1</div>
+          <div class="photo-date">Apr 11, 2026</div>
+        </div>
+
+        <div class="photo-card">
+          <div class="photo-thumb">
+            <img src="../photos/portrait/Layer 12.jpg" alt="Velvet afternoon" />
+            <span class="photo-count">18</span>
+          </div>
+          <div class="photo-title">Velvet afternoon</div>
+          <div class="photo-date">Apr 7, 2026</div>
+        </div>
+
+        <div class="photo-card">
+          <div class="photo-thumb">
+            <img src="../photos/portrait/Layer 13.jpg" alt="Off-duty" />
+            <span class="photo-count">31</span>
+          </div>
+          <div class="photo-title">Off-duty</div>
+          <div class="photo-date">Apr 3, 2026</div>
+        </div>
+
+        <div class="photo-card">
+          <div class="photo-thumb">
+            <img src="../photos/portrait/Layer 14.jpg" alt="Monochrome" />
+            <span class="photo-count">12</span>
+          </div>
+          <div class="photo-title">Monochrome</div>
+          <div class="photo-date">Mar 29, 2026</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── NEXT STREAM ── -->
+  <section class="stream-section">
+    <div class="wrap">
+      <div class="stream-inner">
+        <div class="stream-left">
+          <div class="stream-badge">
+            <span class="stream-dot"></span>
+            Next stream
+          </div>
+          <div class="stream-title">Saturday night live</div>
+          <div class="stream-date">Saturday, May 10, 2026 — 8:00 PM</div>
+        </div>
+        <div class="countdown">
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cd-days">00</span>
+            <span class="countdown-label">Days</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cd-hours">00</span>
+            <span class="countdown-label">Hours</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cd-mins">00</span>
+            <span class="countdown-label">Mins</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cd-secs">00</span>
+            <span class="countdown-label">Secs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── LATEST POSTS ── -->
+  <section class="section-posts">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="section-title">Latest Posts</span>
+        <a href="posts.html" class="section-link">
+          See all
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M15.793 8.29304C16.1835 7.90251 16.8165 7.90251 17.207 8.29304L19.5 10.586C20.2809 11.367 20.2809 12.6331 19.5 13.4141L17.207 15.7071L17.1309 15.7755C16.7381 16.0957 16.1591 16.0732 15.793 15.7071C15.4269 15.341 15.4043 14.762 15.7246 14.3692L15.793 14.293L17.0859 13.0001H5C4.44774 13.0001 4.00004 12.5523 4 12.0001C4 11.4478 4.44772 11.0001 5 11.0001H17.0859L15.793 9.7071C15.4025 9.3166 15.4025 8.68357 15.793 8.29304Z"/>
+          </svg>
+        </a>
+      </div>
+      <div class="posts-grid">
+
+        <article class="post-card">
+          <div class="post-thumb">
+            <img src="../photos/portrait/Layer 15.jpg" alt="The quiet before the storm" />
+          </div>
+          <div class="post-meta">Apr 13, 2026</div>
+          <h3 class="post-title">The quiet before the storm</h3>
+          <p class="post-text">Sometimes the most meaningful moments happen in complete silence. I want to share what I've been feeling this past week, and why I think vulnerability is underrated…</p>
+          <div class="post-footer">
+            <span class="post-stat">
+              <svg viewBox="0 0 24 24" fill="none"><path fill="currentColor" d="M16 3C18.7614 3 21 5.23858 21 8V22C21 22.3466 20.8202 22.6684 20.5254 22.8506C20.2306 23.0327 19.8626 23.0495 19.5527 22.8945L15.9746 21.1055C15.836 21.0362 15.6833 21.0001 15.5283 21H8C5.23858 21 3 18.7614 3 16V8C3 5.23858 5.23858 3 8 3H16ZM8 5C6.34315 5 5 6.34315 5 8V16C5 17.6569 6.34315 19 8 19H15.5283C15.9937 19.0001 16.4528 19.1083 16.8691 19.3164L19 20.3818V8C19 6.34315 17.6569 5 16 5H8Z"/></svg>
+              42
+            </span>
+            <span class="post-stat">
+              <svg viewBox="0 0 24 24" fill="none"><path fill="currentColor" d="M11.9994 4.94749C14.5054 1.8516 19.8456 2.42306 21.4779 6.50316C22.3716 8.73735 22.1551 11.3398 20.6879 13.3274C19.5847 14.8217 18.1185 16.6831 16.64 18.1799C15.902 18.927 15.1352 19.6088 14.389 20.1106C13.6691 20.5946 12.8389 21.0002 11.9994 21.0002C11.16 21 10.3296 20.5946 9.60974 20.1106C8.86365 19.6088 8.09766 18.9269 7.35974 18.1799C5.88102 16.683 4.41411 14.8218 3.31091 13.3274C1.84384 11.3399 1.62735 8.73726 2.52087 6.50316C4.15303 2.42298 9.49324 1.85183 11.9994 4.94749Z"/></svg>
+              218
+            </span>
+          </div>
+        </article>
+
+        <article class="post-card">
+          <div class="post-thumb">
+            <img src="../photos/portrait/Layer 16.jpg" alt="My morning ritual" />
+          </div>
+          <div class="post-meta">Apr 8, 2026</div>
+          <h3 class="post-title">My morning ritual</h3>
+          <p class="post-text">I've been asked so many times what my morning looks like. Honestly — it's slower than you'd expect. Coffee first. Always. Then about an hour of just existing before I reach for my phone…</p>
+          <div class="post-footer">
+            <span class="post-stat">
+              <svg viewBox="0 0 24 24" fill="none"><path fill="currentColor" d="M16 3C18.7614 3 21 5.23858 21 8V22C21 22.3466 20.8202 22.6684 20.5254 22.8506C20.2306 23.0327 19.8626 23.0495 19.5527 22.8945L15.9746 21.1055C15.836 21.0362 15.6833 21.0001 15.5283 21H8C5.23858 21 3 18.7614 3 16V8C3 5.23858 5.23858 3 8 3H16ZM8 5C6.34315 5 5 6.34315 5 8V16C5 17.6569 6.34315 19 8 19H15.5283C15.9937 19.0001 16.4528 19.1083 16.8691 19.3164L19 20.3818V8C19 6.34315 17.6569 5 16 5H8Z"/></svg>
+              29
+            </span>
+            <span class="post-stat">
+              <svg viewBox="0 0 24 24" fill="none"><path fill="currentColor" d="M11.9994 4.94749C14.5054 1.8516 19.8456 2.42306 21.4779 6.50316C22.3716 8.73735 22.1551 11.3398 20.6879 13.3274C19.5847 14.8217 18.1185 16.6831 16.64 18.1799C15.902 18.927 15.1352 19.6088 14.389 20.1106C13.6691 20.5946 12.8389 21.0002 11.9994 21.0002C11.16 21 10.3296 20.5946 9.60974 20.1106C8.86365 19.6088 8.09766 18.9269 7.35974 18.1799C5.88102 16.683 4.41411 14.8218 3.31091 13.3274C1.84384 11.3399 1.62735 8.73726 2.52087 6.50316C4.15303 2.42298 9.49324 1.85183 11.9994 4.94749Z"/></svg>
+              174
+            </span>
+          </div>
+        </article>
+
+        <article class="post-card">
+          <div class="post-thumb">
+            <img src="../photos/portrait/Layer 17.jpg" alt="What I'm listening to" />
+          </div>
+          <div class="post-meta">Apr 2, 2026</div>
+          <h3 class="post-title">What I'm listening to</h3>
+          <p class="post-text">My playlist this month is everything. From late-night downtempo to energizing midday tracks — music is the invisible layer of every shoot I do. Here's what's been on repeat…</p>
+          <div class="post-footer">
+            <span class="post-stat">
+              <svg viewBox="0 0 24 24" fill="none"><path fill="currentColor" d="M16 3C18.7614 3 21 5.23858 21 8V22C21 22.3466 20.8202 22.6684 20.5254 22.8506C20.2306 23.0327 19.8626 23.0495 19.5527 22.8945L15.9746 21.1055C15.836 21.0362 15.6833 21.0001 15.5283 21H8C5.23858 21 3 18.7614 3 16V8C3 5.23858 5.23858 3 8 3H16ZM8 5C6.34315 5 5 6.34315 5 8V16C5 17.6569 6.34315 19 8 19H15.5283C15.9937 19.0001 16.4528 19.1083 16.8691 19.3164L19 20.3818V8C19 6.34315 17.6569 5 16 5H8Z"/></svg>
+              17
+            </span>
+            <span class="post-stat">
+              <svg viewBox="0 0 24 24" fill="none"><path fill="currentColor" d="M11.9994 4.94749C14.5054 1.8516 19.8456 2.42306 21.4779 6.50316C22.3716 8.73735 22.1551 11.3398 20.6879 13.3274C19.5847 14.8217 18.1185 16.6831 16.64 18.1799C15.902 18.927 15.1352 19.6088 14.389 20.1106C13.6691 20.5946 12.8389 21.0002 11.9994 21.0002C11.16 21 10.3296 20.5946 9.60974 20.1106C8.86365 19.6088 8.09766 18.9269 7.35974 18.1799C5.88102 16.683 4.41411 14.8218 3.31091 13.3274C1.84384 11.3399 1.62735 8.73726 2.52087 6.50316C4.15303 2.42298 9.49324 1.85183 11.9994 4.94749Z"/></svg>
+              96
+            </span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── LATEST X POSTS ── -->
+  <section class="section-x">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="section-title">From my X</span>
+      </div>
+      <div class="x-posts" id="x-posts">
+
+        <div class="x-post">
+          <div class="x-post-head">
+            <svg viewBox="0 0 24 24" fill="none" style="width:14px;height:14px;color:rgba(255,255,255,0.24)">
+              <path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.736-8.851L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            <span class="x-post-date">Apr 14, 2026</span>
+          </div>
+          <p class="x-post-text">new set is going up tonight and honestly it's some of my best work this year. sometimes you just know when something lands right ✦</p>
+        </div>
+
+        <div class="x-post">
+          <div class="x-post-head">
+            <svg viewBox="0 0 24 24" fill="none" style="width:14px;height:14px;color:rgba(255,255,255,0.24)">
+              <path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.736-8.851L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            <span class="x-post-date">Apr 11, 2026</span>
+          </div>
+          <p class="x-post-text">can we talk about how underrated late afternoon light is?? absolutely no filters needed, nature does all the work 🌅</p>
+        </div>
+
+        <div class="x-post">
+          <div class="x-post-head">
+            <svg viewBox="0 0 24 24" fill="none" style="width:14px;height:14px;color:rgba(255,255,255,0.24)">
+              <path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.736-8.851L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            <span class="x-post-date">Apr 8, 2026</span>
+          </div>
+          <p class="x-post-text">saturday stream was everything. thank you to everyone who showed up and stayed — your energy was electric. see you may 10th ❤</p>
+        </div>
+
+      </div>
+      <div class="x-dots" id="x-dots">
+        <span class="x-dot active"></span>
+        <span class="x-dot"></span>
+        <span class="x-dot"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STAY IN TOUCH (guest only) ── -->
+  <section class="section-stay guest-only">
+    <div class="wrap">
+      <div class="stay-inner">
+        <div class="stay-text">
+          <h2 class="stay-title">Stay in<br>the loop</h2>
+          <p class="stay-sub">Get notified about new content, streams, and exclusive offers. No spam — ever.</p>
+        </div>
+        <form class="stay-form" onsubmit="return false;">
+          <input class="form-input" type="text" placeholder="Your name" autocomplete="name" />
+          <input class="form-input" type="email" placeholder="Your email" autocomplete="email" />
+          <button class="btn-subscribe" type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="wrap">
+    <div class="footer-links">
+      <a href="#">Customer support</a>
+      <a href="#">Billing support</a>
+      <a href="#">Terms of service</a>
+      <a href="#">Privacy policy</a>
+    </div>
+    <p class="footer-legal">By accessing this website, you certify that you are 18 years of age or older. All models appearing on this site are 18 years of age or older. 18 U.S.C. 2257 Record-Keeping Requirements Compliance Statement.</p>
+    <p class="footer-copy">© Copyright 2026 Adultcentro. All rights reserved. Powered by Modelcentro</p>
+  </div>
+</footer>
+
+<!-- ==================== LIGHTBOX ==================== -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Preview">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close preview">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill="currentColor" d="M15.293 7.29303C15.6835 6.90251 16.3165 6.90251 16.707 7.29303C17.0975 7.68356 17.0975 8.31659 16.707 8.70709L13.4141 12.0001L16.707 15.293L16.7754 15.3692C17.0957 15.762 17.0731 16.341 16.707 16.7071C16.3409 17.0732 15.7619 17.0957 15.3691 16.7755L15.293 16.7071L12 13.4141L8.70703 16.7071C8.31653 17.0976 7.6835 17.0976 7.29297 16.7071C6.90245 16.3166 6.90245 15.6836 7.29297 15.293L10.5859 12.0001L7.29297 8.70709C6.90245 8.31657 6.90245 7.68355 7.29297 7.29303C7.68349 6.90251 8.31651 6.90251 8.70703 7.29303L12 10.586L15.293 7.29303Z"/>
+      </svg>
+    </button>
+    <img src="" alt="Preview" />
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>
